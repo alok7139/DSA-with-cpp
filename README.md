@@ -3,5 +3,6 @@ C++ fundamentals and questions for beginners and intermediates.
  >Topics
 * All Sorting Algorithm
 * Array 
+* Binary Search
 * Strings
 * Linked List
