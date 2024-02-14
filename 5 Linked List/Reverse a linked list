@@ -1,0 +1,47 @@
+/*
+Given the head of a singly linked list, reverse the list, and return the reversed list.
+
+ 
+
+Example 1:
+
+
+Input: head = [1,2,3,4,5]
+Output: [5,4,3,2,1]
+*/
+
+// recursive approach
+ListNode* reverseList(ListNode* head) {
+        if(head==nullptr or head->next==nullptr){
+            return head;
+        }
+        ListNode*getreverse=reverseList(head->next);
+        head->next->next=head;
+        head->next=nullptr;
+        return getreverse;
+    }
+
+
+    // iterative approach
+    ListNode* reverseList(ListNode* *head)
+{
+    // Write your code here
+    if(head==nullptr or head->next==nullptr){
+        return head;
+    }/*
+    ListNode* reverse = reverseLinkedList(head->next);
+    head->next->next=head;
+    head->next=nullptr;
+    return reverse;*/
+    ListNode* * temp=head;
+    ListNode* *next1=nullptr;
+    ListNode* *prev=nullptr;
+    while(temp!=nullptr){
+         next1=temp->next;
+         temp->next=prev;
+         prev=temp;
+         temp=next1;
+         
+    }
+    return prev;
+}
