@@ -1,0 +1,51 @@
+/*
+Given the head of a singly linked list, return true if it is a 
+palindrome
+ or false otherwise.
+
+ 
+
+Example 1:
+
+
+Input: head = [1,2,2,1]
+Output: true
+*/
+
+    ListNode * reverse(ListNode*head){
+        if(head==NULL or head->next==NULL){
+            return head;
+        }
+        ListNode*getreverse=reverse(head->next);
+            head->next->next=head;
+            head->next=NULL;
+            return getreverse;
+    }
+    ListNode* mid(ListNode *head){
+        ListNode * second=head->next;
+        ListNode *first=head;
+        while(second!=NULL and second->next!=nullptr){
+            second=second->next->next;
+            first=first->next;
+        }
+        return first;
+    }
+    bool isPalindrome(ListNode* head) {
+        if(head==nullptr or head->next==nullptr){
+            return true;
+        }
+        
+        ListNode *midpoint=mid(head);
+        ListNode * temp=midpoint->next;
+        midpoint->next=reverse(temp);
+        ListNode*head1=head;
+        ListNode*head2=midpoint->next;
+        while(head2!=NULL){
+            if(head1->val!=head2->val){
+                return false;
+            }
+            head1=head1->next;
+            head2=head2->next;
+        }
+        return true;
+    }
