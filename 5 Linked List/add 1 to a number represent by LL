@@ -1,0 +1,54 @@
+/*
+You're given a positive integer represented in the form of a singly linked-list of digits. The length of the number is 'n'.
+
+
+
+Add 1 to the number, i.e., increment the given number by one.
+
+
+
+The digits are stored such that the most significant digit is at the head of the linked list and the least significant digit is at the tail of the linked list.
+
+
+
+Example:
+Input: Initial Linked List: 1 -> 5 -> 2
+
+Output: Modified Linked List: 1 -> 5 -> 3
+
+Explanation: Initially the number is 152. After incrementing it by 1, the number becomes 153.
+*/
+Node* reverseLinkedList(Node *head)
+{
+    // Write your code here
+    if (head == nullptr or head->next == nullptr) {
+      return head;
+    } 
+     Node* reverse = reverseLinkedList(head->next);
+     head->next->next=head;
+     head->next=nullptr;
+     return reverse;
+}
+Node *addOne(Node *head)
+{
+    // Write Your Code Here.
+    head=reverseLinkedList(head);
+     Node*dummy=new Node();
+     Node*temp=dummy;
+    int carry=1;
+    while(head!=nullptr or carry!=0){
+        int sum=carry;
+        if(head!=nullptr){
+            sum += head->data;
+            head=head->next;
+        }
+        
+        carry = sum/10;
+        Node*newnode=new Node(sum%10);
+        temp->next=newnode;
+        temp=temp->next;
+
+    }
+    return reverseLinkedList(dummy->next);
+
+}
