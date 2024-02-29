@@ -1,0 +1,65 @@
+/*
+You are given a N*N maze with a rat placed at 'mat[0][0]'. Find all paths that rat can follow to reach its destination i.e. mat[N-1][N-1]. The directions in which the rat can move are 'U'(up), 'D'(down), 'L' (left), 'R' (right).
+
+
+
+In the given maze, each cell can have a value of either 0 or 1. Cells with a value of 0 are considered blocked, which means the rat cannot enter or traverse through them. On the other hand, cells with a value of 1 are open, indicating that the rat is allowed to enter and move through those cells.
+
+
+
+Example:
+mat:{{1, 0, 0, 0},
+     {1, 1, 0, 1}, 
+     {1, 1, 0, 0},
+     {0, 1, 1, 1}}
+
+All possible paths are:
+DDRDRR (in red)
+DRDDRR (in green)
+*/
+void solve(vector<string>&ans,vector<vector<int>>&m,vector<vector<int>>&visit,int i,int j,string output){
+   // base case
+    int n=m.size();
+    if(i==n-1 and j==n-1){
+        ans.push_back(output);
+        return;
+    }
+     // for downward
+        if(i+1<n and !visit[i+1][j] and m[i+1][j]==1){
+            visit[i][j]=1;
+            solve(ans,m,visit,i+1,j,output+"D");
+            visit[i][j]=0;
+        }
+        // for upward
+        if(i-1>=0 and !visit[i-1][j] and m[i-1][j]==1){
+            visit[i][j]=1;
+            solve(ans,m,visit,i-1,j,output+"U");
+            visit[i][j]=0;
+        }
+        // for right
+        if(j+1<n and !visit[i][j+1] and m[i][j+1]==1){
+            visit[i][j]=1;
+            solve(ans,m,visit,i,j+1,output+"R");
+            visit[i][j]=0;
+        }
+        // for left
+        if(j-1>=0 and !visit[i][j-1] and m[i][j-1]==1){
+            visit[i][j]=1;
+            solve(ans,m,visit,i,j-1,output+"L");
+            visit[i][j]=0;
+        }
+
+    
+
+}
+vector<string> ratMaze(vector<vector<int>> &mat) {
+    // Write your code here.
+    int n=mat.size();
+    vector<string>ans;
+    vector<vector<int>>visit(n,vector<int>(n,0));
+    if (mat[0][0] == 1) {
+      solve(ans, mat, visit, 0, 0, "");
+    }
+
+    return ans;
+}
