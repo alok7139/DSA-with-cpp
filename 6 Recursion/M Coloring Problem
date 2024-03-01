@@ -1,0 +1,55 @@
+/*
+You are given an undirected graph as an adjacency matrix consisting of 'v' vertices and an integer 'm'.
+
+
+
+You need to return 'YES' if you can color the graph using at most 'm' colors so that no two adjacent vertices are the same. Else, return 'NO'.
+
+
+
+For example:
+Input:
+If the given adjacency matrix is:
+[0 1 0]
+[1 0 1]
+[0 1 0] and 'm' = 3.
+
+Output: YES
+
+Explanation:
+The given adjacency matrix tells us that 1 is connected to 2 and 2 is connected to 3. We can use three different colors and color all three nodes.
+Hence we return true.
+*/
+bool safe(int node,vector<vector<int>> &mat,int color[],int n,int mark){
+   for(int k=0;k<n;k++){
+     if (node!=k and mat[node][k] == 1 and color[k] == mark) {
+       return false;
+     }
+   }
+   return true;
+}
+bool solve(int node,vector<vector<int>> &mat,int color[],int n,int m){
+    if(node==n){
+        return true;
+    }
+    for(int i=1;i<=m;i++){
+        if(safe(node,mat,color,n,i)){
+            color[node]=i;
+            if(solve(node+1,mat,color,n,m))return true;
+            color[node]=-1;
+        }
+    }
+    return false;
+}
+string graphColoring(vector<vector<int>> &mat, int m) {
+    // Write your code here
+    int n=mat.size();
+    int color[n]={-1};
+    bool yes=solve(0,mat,color,n,m);
+    if(yes){
+        return "YES";
+    }
+    else{
+        return "NO";
+    }
+}
