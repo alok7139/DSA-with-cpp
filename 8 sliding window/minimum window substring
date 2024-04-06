@@ -1,0 +1,52 @@
+/*
+Given two strings s and t of lengths m and n respectively, return the minimum window 
+substring
+ of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
+
+The testcases will be generated such that the answer is unique.
+
+ 
+
+Example 1:
+
+Input: s = "ADOBECODEBANC", t = "ABC"
+Output: "BANC"
+Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
+*/
+    string minWindow(string s, string t) {
+        int n=s.size();
+        int m=t.size();
+        if(n<m){
+            return "";
+        }
+        string ans = "";
+        vector<int>scount(256,0);
+        vector<int>tcount(256,0);
+        for(int i=0;i<m;i++){
+            tcount[t[i]]++;
+        }
+        int left=0,right=0;
+        while(left<=right and right<n){
+            scount[s[right]]++;
+            while(left<=right and scount[s[left]]>=tcount[s[left]]){
+                  string temp = s.substr(left,right-left+1);
+                  if(check(scount,tcount) and (ans.size()>temp.size() or ans == "")){
+                      ans = temp;
+                  }
+                  if(scount[s[left]] == tcount[s[left]])break;
+                  scount[s[left]]--;
+                  left++;
+            }
+
+
+            right++;
+        }
+        return ans;
+        
+    }
+    bool check(vector<int>&scount , vector<int>&tcount){
+        for(int i=0;i<256;i++){
+            if(tcount[i]>scount[i])return false;
+        }
+        return true;
+    }
