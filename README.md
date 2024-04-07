@@ -10,3 +10,4 @@ C++ fundamentals and questions for beginners and intermediates.
 * Bit Manipulation
 * Stack and Queue
 * Sliding Window
+* Heap
