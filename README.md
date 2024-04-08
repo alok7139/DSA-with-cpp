@@ -11,3 +11,4 @@ C++ fundamentals and questions for beginners and intermediates.
 * Stack and Queue
 * Sliding Window
 * Heap
+* Greedy Algorithms
