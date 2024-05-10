@@ -1,0 +1,46 @@
+/*
+Given the root of a binary search tree, and an integer k, return the kth smallest value (1-indexed) of all the values of the nodes in the tree.
+
+ 
+
+Example 1:
+
+
+Input: root = [3,1,4,null,2], k = 1
+Output: 1
+
+*/
+void convert(TreeNode* root,vector<int>&ans){
+        if(root==nullptr){
+            return ;
+        }
+        convert(root->left,ans);
+        ans.push_back(root->val);
+        convert(root->right,ans);
+    }
+    int kthSmallest(TreeNode* root, int k) {
+        if(root==nullptr || k<=0){
+            return 0;
+        }
+        // int result=-1;
+        // find(root,k,result);
+        // return result;
+
+        // 2ns approach
+        vector<int>ans;
+        convert(root,ans);
+        return ans[k-1];
+        
+    }
+    void find(TreeNode* root, int &k,int &ans){
+        if(root==nullptr){
+            return;
+        }
+        find(root->left,k,ans);
+        k--;
+        if(k==0){
+            ans=root->val;
+            return ;
+        }
+        find(root->right,k,ans);
+    }
