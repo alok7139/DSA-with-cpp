@@ -1,0 +1,43 @@
+/*
+Given a binary search tree and an integer.Find the floor value of a key in a binary search tree .
+
+(If k lies in BST then is floor equal to k,else floor is equal to previous greater value) Note: k would never be less than the minimum element of tree.
+Detailed explanation ( Input/output format, Notes, Images )
+Sample Input 1:
+4
+8 5 10 2 6 -1 -1 -1 -1 -1 7 -1 -1
+Sample Output 1:
+2
+Sample Input 2:
+7
+8 5 10 2 6 -1 -1 -1 -1 -1 7 -1 -1
+Sample Output 2:
+6
+
+*/
+
+int Floor(BinaryTreeNode<int> *node, int input)
+{
+		/*Write your code here. 
+	 *Don't write main().
+	 *Don't take input, it is passed as function argument.
+	 *Don't print output.
+	 *Taking input and printing output is handled automatically.
+	*/ 
+	int floor=-1;
+	while(node){
+		if(node->data==input){
+			return input;
+		}
+		else if(node->data<input){
+			floor=node->data;
+			node=node->right;
+		}
+		else{
+			node=node->left;
+		}
+	}
+	return floor;
+	
+	
+}
