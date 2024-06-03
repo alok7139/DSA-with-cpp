@@ -14,3 +14,4 @@ C++ fundamentals and questions for beginners and intermediates.
 * Greedy Algorithms
 * Binary Tree
 * Binary Search Tree
+* Trie
